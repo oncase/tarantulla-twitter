@@ -1,0 +1,11 @@
+{
+    "temp_output": "../data/",
+    "python-command":"python3", 
+    "publishers" :
+    [
+        {
+          "_twitter_screen": "AndroidPITcom",
+          "name": "AndroidPIT US"
+        }
+    ]
+}

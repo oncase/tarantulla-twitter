@@ -1,0 +1,12 @@
+{  
+    "database_config" :  
+   {
+        "database_name" : "postgres",
+        "database_url" : "jdbc:postgresql://localhost:5432/",
+        "database_driver" : "org.postgresql.Driver",
+        "database_username" : "postgres",
+        "database_password" : "[YOUR PASSWORD]",
+        "database_schema" : "staging",
+        "database_table" : "stg_twitter"  
+    }
+}
