@@ -590,11 +590,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Update</from>
-      <to>Write to log 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>formatDate</from>
       <to>AddDate</to>
       <enabled>Y</enabled>
@@ -608,11 +603,6 @@
       <from>To Debug 2</from>
       <to>AddDate</to>
       <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Table output 2</from>
-      <to>Update</to>
-      <enabled>N</enabled>
     </hop>
     <hop>
       <from>AddDate</from>
@@ -697,6 +687,11 @@
     <hop>
       <from>make date hour</from>
       <to>DateConvert</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table output 2</from>
+      <to>error</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1953,7 +1948,7 @@
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
+    <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -2126,8 +2121,8 @@
     </GUI>
   </step>
   <step>
-    <name>Update</name>
-    <type>Update</type>
+    <name>Value Mapper</name>
+    <type>ValueMapper</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -2136,34 +2131,59 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>TwitterDatabase</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field>failure</ignore_flag_field>
-    <lookup>
-      <schema>${TwitterSchema}</schema>
-      <table>${TwitterTable}</table>
-      <key>
-        <name>twitter_id</name>
-        <field>twitter_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>rts</name>
-        <rename>rts</rename>
-      </value>
-      <value>
-        <name>favs</name>
-        <rename>favs</rename>
-      </value>
-      <value>
-        <name>engagement</name>
-        <rename>engagement</rename>
-      </value>
-    </lookup>
+    <field_to_use>month</field_to_use>
+    <target_field>monthn</target_field>
+    <non_match_default/>
+    <fields>
+      <field>
+        <source_value>Jan</source_value>
+        <target_value>01</target_value>
+      </field>
+      <field>
+        <source_value>Feb</source_value>
+        <target_value>02</target_value>
+      </field>
+      <field>
+        <source_value>Mar</source_value>
+        <target_value>03</target_value>
+      </field>
+      <field>
+        <source_value>Apr</source_value>
+        <target_value>04</target_value>
+      </field>
+      <field>
+        <source_value>May</source_value>
+        <target_value>05</target_value>
+      </field>
+      <field>
+        <source_value>Jun</source_value>
+        <target_value>06</target_value>
+      </field>
+      <field>
+        <source_value>Jul</source_value>
+        <target_value>07</target_value>
+      </field>
+      <field>
+        <source_value>Aug</source_value>
+        <target_value>08</target_value>
+      </field>
+      <field>
+        <source_value>Sep</source_value>
+        <target_value>09</target_value>
+      </field>
+      <field>
+        <source_value>Oct</source_value>
+        <target_value>10</target_value>
+      </field>
+      <field>
+        <source_value>Nov</source_value>
+        <target_value>11</target_value>
+      </field>
+      <field>
+        <source_value>Dec</source_value>
+        <target_value>12</target_value>
+      </field>
+    </fields>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -2172,8 +2192,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>672</yloc>
+      <xloc>1408</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2209,48 +2229,6 @@
     <GUI>
       <xloc>688</xloc>
       <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Write to log 2</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <loglevel>log_level_basic</loglevel>
-    <displayHeader>Y</displayHeader>
-    <limitRows>N</limitRows>
-    <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>##########################
-	Update Failure
-##########################</logmessage>
-    <fields>
-      <field>
-        <name>twitter_id</name>
-      </field>
-      <field>
-        <name>timestamp_twitter</name>
-      </field>
-      <field>
-        <name>publisher_twitter</name>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>928</xloc>
-      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2320,6 +2298,48 @@
     <GUI>
       <xloc>80</xloc>
       <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>error</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>##########################
+	Failure
+##########################</logmessage>
+    <fields>
+      <field>
+        <name>twitter_id</name>
+      </field>
+      <field>
+        <name>timestamp_twitter</name>
+      </field>
+      <field>
+        <name>publisher_twitter</name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2400,6 +2420,38 @@
     </GUI>
   </step>
   <step>
+    <name>get day</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>Created_at</in_stream_name>
+        <out_stream_name>day</out_stream_name>
+        <cut_from>7</cut_from>
+        <cut_to>10</cut_to>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1296</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>get distinct hashtags</name>
     <type>ScriptValueMod</type>
     <description/>
@@ -2456,60 +2508,6 @@ hashu = hashu.toString();</jsScript_script>
     <GUI>
       <xloc>528</xloc>
       <yloc>560</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>link_tweet</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <calculation>
-      <field_name>url</field_name>
-      <calc_type>CONSTANT</calc_type>
-      <field_a>https://twitter.com/tweet/status/</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>String</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>Y</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>link_tweet</field_name>
-      <calc_type>ADD</calc_type>
-      <field_a>url</field_a>
-      <field_b>Twitter_id</field_b>
-      <field_c/>
-      <value_type>String</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2610,8 +2608,8 @@ hashu = hashu.toString();</jsScript_script>
     </GUI>
   </step>
   <step>
-    <name>get day</name>
-    <type>StringCut</type>
+    <name>link_tweet</name>
+    <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -2620,14 +2618,36 @@ hashu = hashu.toString();</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>Created_at</in_stream_name>
-        <out_stream_name>day</out_stream_name>
-        <cut_from>7</cut_from>
-        <cut_to>10</cut_to>
-      </field>
-    </fields>
+    <calculation>
+      <field_name>url</field_name>
+      <calc_type>CONSTANT</calc_type>
+      <field_a>https://twitter.com/tweet/status/</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>Y</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>link_tweet</field_name>
+      <calc_type>ADD</calc_type>
+      <field_a>url</field_a>
+      <field_b>Twitter_id</field_b>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -2636,84 +2656,7 @@ hashu = hashu.toString();</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1296</xloc>
-      <yloc>368</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Value Mapper</name>
-    <type>ValueMapper</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <field_to_use>month</field_to_use>
-    <target_field>monthn</target_field>
-    <non_match_default/>
-    <fields>
-      <field>
-        <source_value>Jan</source_value>
-        <target_value>01</target_value>
-      </field>
-      <field>
-        <source_value>Feb</source_value>
-        <target_value>02</target_value>
-      </field>
-      <field>
-        <source_value>Mar</source_value>
-        <target_value>03</target_value>
-      </field>
-      <field>
-        <source_value>Apr</source_value>
-        <target_value>04</target_value>
-      </field>
-      <field>
-        <source_value>May</source_value>
-        <target_value>05</target_value>
-      </field>
-      <field>
-        <source_value>Jun</source_value>
-        <target_value>06</target_value>
-      </field>
-      <field>
-        <source_value>Jul</source_value>
-        <target_value>07</target_value>
-      </field>
-      <field>
-        <source_value>Aug</source_value>
-        <target_value>08</target_value>
-      </field>
-      <field>
-        <source_value>Sep</source_value>
-        <target_value>09</target_value>
-      </field>
-      <field>
-        <source_value>Oct</source_value>
-        <target_value>10</target_value>
-      </field>
-      <field>
-        <source_value>Nov</source_value>
-        <target_value>11</target_value>
-      </field>
-      <field>
-        <source_value>Dec</source_value>
-        <target_value>12</target_value>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1408</xloc>
+      <xloc>336</xloc>
       <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2903,19 +2846,7 @@ hashu = hashu.toString();</jsScript_script>
   <step_error_handling>
     <error>
       <source_step>Table output 2</source_step>
-      <target_step>Update</target_step>
-      <is_enabled>N</is_enabled>
-      <nr_valuename/>
-      <descriptions_valuename/>
-      <fields_valuename/>
-      <codes_valuename/>
-      <max_errors/>
-      <max_pct_errors/>
-      <min_pct_rows/>
-    </error>
-    <error>
-      <source_step>Update</source_step>
-      <target_step>Write to log 2</target_step>
+      <target_step>error</target_step>
       <is_enabled>Y</is_enabled>
       <nr_valuename/>
       <descriptions_valuename/>
@@ -2932,30 +2863,6 @@ hashu = hashu.toString();</jsScript_script>
   <attributes>
     <group>
       <name>explorerState</name>
-      <attribute>
-        <key>get year</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>make date</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>get day</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>get time</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>make date hour</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>get month</key>
-        <value/>
-      </attribute>
     </group>
   </attributes>
 </transformation>
