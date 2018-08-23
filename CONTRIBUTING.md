@@ -122,5 +122,5 @@ Check the Tarantulla [landing page][page-link].
 [readme-link]: https://github.com/oncase/tarantulla-twitter/blob/master/README.md
 [issue-link]: https://github.com/oncase/tarantulla-twitter/issues/new
 [github]: https://github.com/oncase/tarantulla-twitter/
-[code-link]: https://github.com/idantas/tarantulla-twitter/blob/master/CODE_OF_CONDUCT.md
+[code-link]: https://github.com/oncase/tarantulla-twitter/blob/master/CODE_OF_CONDUCT.md
 [page-link]: https://tarantulla.io/
