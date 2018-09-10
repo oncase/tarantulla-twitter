@@ -691,6 +691,11 @@
     </hop>
     <hop>
       <from>Table output 2</from>
+      <to>Update</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Update</from>
       <to>error</to>
       <enabled>Y</enabled>
     </hop>
@@ -2339,7 +2344,7 @@
     </remotesteps>
     <GUI>
       <xloc>816</xloc>
-      <yloc>672</yloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2843,9 +2848,73 @@ hashu = hashu.toString();</jsScript_script>
       <draw>Y</draw>
     </GUI>
   </step>
+  <step>
+    <name>Update</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>TwitterDatabase</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>${db_schema}</schema>
+      <table>${db_table}</table>
+      <key>
+        <name>twitter_id</name>
+        <field>twitter_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>rts</name>
+        <rename>rts</rename>
+      </value>
+      <value>
+        <name>favs</name>
+        <rename>favs</rename>
+      </value>
+      <value>
+        <name>engagement</name>
+        <rename>engagement</rename>
+      </value>
+    </lookup>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step_error_handling>
     <error>
       <source_step>Table output 2</source_step>
+      <target_step>Update</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename/>
+      <descriptions_valuename/>
+      <fields_valuename/>
+      <codes_valuename/>
+      <max_errors/>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
+    <error>
+      <source_step>Update</source_step>
       <target_step>error</target_step>
       <is_enabled>Y</is_enabled>
       <nr_valuename/>
